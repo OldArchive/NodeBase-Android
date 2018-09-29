@@ -35,18 +35,13 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
     protected void onCreateView(Bundle savedInstanceState, ViewGroup container) {
        getLayoutInflater().inflate(R.layout.fragment_masternode,container);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        setTitle("MasterNode");
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         totalcount = (TextView) findViewById(R.id.mncountlabel);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
-                drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.addDrawerListener(toggle);
-        toggle.syncState();
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
