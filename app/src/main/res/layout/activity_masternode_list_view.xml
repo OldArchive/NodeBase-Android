@@ -5,13 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MasternodeListView">
-    <include
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <include layout="@layout/activity_main"
-
-        />
 
     <TextView
         android:id="@+id/textView2"
@@ -41,4 +34,13 @@
         android:layout_marginTop="95dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
+
+    <include
+        layout="@layout/app_bar_main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <include layout="@layout/activity_main"
+
+        />
+
 </RelativeLayout>
