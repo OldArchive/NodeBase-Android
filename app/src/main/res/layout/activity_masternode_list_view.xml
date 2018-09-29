@@ -5,22 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MasternodeListView">
-    <include
-        layout="@layout/app_bar_main"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-    <include layout="@layout/activity_main"
 
-        />
-
+    <!--
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="18dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="85dp"
-        android:layout_marginTop="63dp"
+        android:layout_marginStart="66dp"
+        android:layout_marginTop="98dp"
         android:text="Total MN Count:" />
 
     <TextView
@@ -38,7 +32,14 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="95dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="176dp"
         android:paddingLeft="10dp"
         android:paddingRight="10dp" />
+        -->
+
+    <include layout="@layout/activity_main"
+
+        />
+
 </RelativeLayout>
