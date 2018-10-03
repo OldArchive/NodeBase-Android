@@ -12,10 +12,7 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-<<<<<<< Updated upstream
-=======
 import android.util.Log;
->>>>>>> Stashed changes
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,28 +49,24 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
     @Override
     protected void onCreateView(Bundle savedInstanceState, ViewGroup container) {
        getLayoutInflater().inflate(R.layout.fragment_masternode,container);
-<<<<<<< Updated upstream
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-=======
+
         setTitle("Masternodes");
 
->>>>>>> Stashed changes
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         totalcount = (TextView) findViewById(R.id.mncountlabel);
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-<<<<<<< Updated upstream
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this,
                 drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-=======
+
 setNavigationMenuItemChecked(3);
->>>>>>> Stashed changes
 
         // data to populate the RecyclerView with
         ArrayList<String> animalNames = new ArrayList<>();
@@ -93,13 +86,12 @@ setNavigationMenuItemChecked(3);
                 //do something when it is successful
                 try {
                     String inputString = data;
-                    inputString = inputString.replaceAll("\t", "");
-                    inputString = inputString.replaceAll("\n", "");
-                    inputString = inputString.replaceAll(" ", "");
-                    inputString = inputString.replaceAll("\\s", "");
-                    String   myJsonString=myJsonString.replaceAll("\\\\","");
-                    JSONArray dataa = new JSONArray(inputString);
-                    hashMap = new HashMap<>(Utility.jsonToMap(dataa)) ;
+                    inputString = inputString.replace("\\\\n", "");
+                    inputString = inputString.replace("\\\\\\", "");
+                    inputString = inputString.substring(3);
+                    System.out.println(inputString);
+                    JSONArray jsonArray = new JSONArray(inputString);
+                    hashMap = new HashMap<>(Utility.jsonToMap(jsonArray)) ;
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
