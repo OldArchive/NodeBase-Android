@@ -12,12 +12,12 @@ import nodebase.org.nodebasewallet.R;
 
 public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAdapter.ViewHolder> {
 
-    private List<String> mData;
+    private List<JsonData> mData;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
     // data is passed into the constructor
-    MyRecyclerViewAdapter(Context context, List<String> data) {
+    MyRecyclerViewAdapter(Context context, List<JsonData> data) {
         this.mInflater = LayoutInflater.from(context);
         this.mData = data;
     }
@@ -32,8 +32,8 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position);
-        holder.myTextView.setText(animal);
+        String animal = mData.get(position).getPubKey();
+        holder.mPubKeymn.setText(animal);
     }
 
     // total number of rows
@@ -45,11 +45,15 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        TextView myTextView;
+        TextView mPubKeymn;
+        TextView mStatus;
+        TextView mPayeeAddr;
 
         ViewHolder(View itemView) {
             super(itemView);
-            myTextView = itemView.findViewById(R.id.pubkeymn);
+            mPubKeymn = itemView.findViewById(R.id.pubkeymn);
+            mStatus = itemView.findViewById(R.id.status);
+            mPayeeAddr = itemView.findViewById(R.id.payeeaddr);
             itemView.setOnClickListener(this);
         }
 
@@ -61,7 +65,7 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
 
     // convenience method for getting data at click position
     String getItem(int id) {
-        return mData.get(id);
+        return mData.get(id).getPubKey();
     }
 
     // allows clicks events to be caught

@@ -30,13 +30,13 @@ public class Utility {
         Map<String, Object> retMap = new HashMap<String, Object>();
 
         if(json != JSONObject.NULL) {
-            retMap = toMap(json);
+            retMap = toList(json);
         }
         return retMap;
     }
 
 
-    private static Map<String, Object> toMap(JSONObject object) throws JSONException {
+    private static Map<String, Object> toList(JSONObject object) throws JSONException {
         Map<String, Object> map = new HashMap<String, Object>();
 
         Iterator<String> keysItr = object.keys();
@@ -49,7 +49,7 @@ public class Utility {
             }
 
             else if(value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
+                value = toList((JSONObject) value);
             }
             map.put(key, value);
         }
@@ -66,7 +66,7 @@ public class Utility {
             }
 
             else if(value instanceof JSONObject) {
-                value = toMap((JSONObject) value);
+                value = toList((JSONObject) value);
             }
             list.add(value);
         }

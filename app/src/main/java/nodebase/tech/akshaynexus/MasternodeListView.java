@@ -31,6 +31,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import nodebase.org.nodebasewallet.R;
 import nodebase.org.nodebasewallet.ui.base.BaseDrawerActivity;
@@ -43,7 +44,7 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
     MyRecyclerViewAdapter adapter;
     private DrawerLayout drawer;
     ArrayList<HashMap<String, String>> masternodeapilist;
-    HashMap<String, Object> hashMap;
+    List<JsonData> mJsonDataList = new ArrayList<>();
 
     TextView totalcount;    private NavigationView navigationView;
     @Override
@@ -69,12 +70,6 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
 setNavigationMenuItemChecked(3);
 
         // data to populate the RecyclerView with
-        ArrayList<String> animalNames = new ArrayList<>();
-        animalNames.add("Horse");
-        animalNames.add("Cow");
-        animalNames.add("Camel");
-        animalNames.add("Sheep");
-        animalNames.add("Goat");
         Fuel.get("http://24.190.71.106:81/url", null).responseString(new Handler<String>() {
             @Override
             public void failure(Request request, Response response, FuelError error) {
@@ -91,7 +86,7 @@ setNavigationMenuItemChecked(3);
                     inputString = inputString.substring(3);
                     System.out.println(inputString);
                     JSONArray jsonArray = new JSONArray(inputString);
-                    hashMap = new HashMap<>(Utility.jsonToMap(jsonArray)) ;
+                    //mJsonDataList = Utility.jsonToMap(jsonArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -102,10 +97,10 @@ setNavigationMenuItemChecked(3);
         // set up the RecyclerView
         RecyclerView recyclerView = findViewById(R.id.rvMasternodeList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyRecyclerViewAdapter(this, animalNames);
+        adapter = new MyRecyclerViewAdapter(this, mJsonDataList);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-totalcount.setText(animalNames.size() + "");
+totalcount.setText(mJsonDataList.size() + "");
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,
 //                DividerItemDecoration.VERTICAL));
     }
