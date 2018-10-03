@@ -32,8 +32,12 @@ public class MyRecyclerViewAdapter extends RecyclerView.Adapter<MyRecyclerViewAd
     // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        String animal = mData.get(position).getPubKey();
-        holder.mPubKeymn.setText(animal);
+        String pubKey = mData.get(position).getPubKey();
+        String status = mData.get(position).getStatus();
+        String payeeAddr = mData.get(position).getPayeeAddress();
+        holder.mPubKeymn.setText(pubKey);
+        holder.mStatus.setText(status);
+        holder.mPayeeAddr.setText(payeeAddr);
     }
 
     // total number of rows

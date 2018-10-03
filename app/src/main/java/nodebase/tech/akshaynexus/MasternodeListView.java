@@ -45,7 +45,7 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
     MyRecyclerViewAdapter adapter;
     private DrawerLayout drawer;
     ArrayList<HashMap<String, String>> masternodeapilist;
-    List<JsonData> mJsonDataList = new ArrayList<>();
+    List<JsonData> mJsonDataList;
 
     TextView totalcount;    private NavigationView navigationView;
     @Override
@@ -67,7 +67,12 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
                 drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        mJsonDataList = Utility.getJsonData();
         RecyclerView recyclerView = findViewById(R.id.rvMasternodeList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new MyRecyclerViewAdapter(this, mJsonDataList);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
 
 setNavigationMenuItemChecked(3);
 
@@ -88,7 +93,7 @@ setNavigationMenuItemChecked(3);
                     inputString = inputString.substring(3);
                     System.out.println(inputString);
                     JSONArray jsonArray = new JSONArray(inputString);
-                    mJsonDataList = Utility.jsonToList(jsonArray);
+                    mJsonDataList = Utility.jsonToList(adapter, jsonArray);
 
                     //mJsonDataList = Utility.jsonToList(jsonArray);
                 } catch (JSONException e) {
@@ -100,10 +105,6 @@ setNavigationMenuItemChecked(3);
         });
         // set up the RecyclerView
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MyRecyclerViewAdapter(this, mJsonDataList);
-        adapter.setClickListener(this);
-        recyclerView.setAdapter(adapter);
         totalcount.setText(mJsonDataList.size() + "");
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,
 //                DividerItemDecoration.VERTICAL));

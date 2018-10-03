@@ -1,5 +1,7 @@
 package nodebase.tech.akshaynexus;
 
+import android.content.Context;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,12 +14,14 @@ import java.util.Map;
 
 public class Utility {
 
-    public static List<JsonData> jsonToList(JSONArray json) throws JSONException {
-        List<JsonData> jsonData = new ArrayList<>();
+    private static List<JsonData> jsonData = new ArrayList<>();
+
+    public static List<JsonData> jsonToList(MyRecyclerViewAdapter adapter, JSONArray json) throws JSONException {
 
     	for (int i = 0; i < json.length(); ++i) {
     	    jsonData.add(extractObject((JSONObject)json.get(i)));
         }
+        adapter.notifyDataSetChanged();
         return jsonData;
     }
 
@@ -73,5 +77,9 @@ public class Utility {
             list.add(value);
         }
         return list;
+    }
+
+    public static List<JsonData> getJsonData() {
+        return jsonData;
     }
 }
