@@ -1,19 +1,15 @@
 package nodebase.tech.akshaynexus;
 
 import android.content.Intent;
-import android.speech.tts.UtteranceProgressListener;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +24,6 @@ import com.github.kittinunf.fuel.core.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -74,7 +69,7 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
 
-setNavigationMenuItemChecked(3);
+        setNavigationMenuItemChecked(3);
 
         // data to populate the RecyclerView with
         Fuel.get("http://24.190.71.106:81/url", null).responseString(new Handler<String>() {
@@ -94,8 +89,7 @@ setNavigationMenuItemChecked(3);
                     System.out.println(inputString);
                     JSONArray jsonArray = new JSONArray(inputString);
                     mJsonDataList = Utility.jsonToList(adapter, jsonArray);
-
-                    //mJsonDataList = Utility.jsonToList(jsonArray);
+                    totalcount.setText(mJsonDataList.size() + "");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -103,9 +97,7 @@ setNavigationMenuItemChecked(3);
 
             }
         });
-        // set up the RecyclerView
 
-        totalcount.setText(mJsonDataList.size() + "");
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,
 //                DividerItemDecoration.VERTICAL));
     }
