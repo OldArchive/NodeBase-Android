@@ -12,22 +12,25 @@ import java.util.Map;
 
 public class Utility {
 
-    public static Map<String, Object> jsonToMap(Object json) throws JSONException {
+    public static List<JsonData> jsonToList(JSONArray json) throws JSONException {
+        List<JsonData> jsonData = new ArrayList<>();
 
-        if(json instanceof JSONObject)
-            return _jsonToMap_((JSONObject)json) ;
-
-        else if (json instanceof String)
-        {
-            JSONObject jsonObject = new JSONObject((String)json) ;
-            return _jsonToMap_(jsonObject) ;
+    	for (int i = 0; i < json.length(); ++i) {
+    	    jsonData.add(extractObject((JSONObject)json.get(i)));
         }
-        return null ;
+        return jsonData;
+    }
+
+    private static JsonData extractObject(JSONObject object) throws JSONException {
+        String pubkey = (String)object.get("txhash");
+        String status = (String)object.get("status");
+        String payeeAddr = (String)object.get("addr");
+        return new JsonData(pubkey, status, payeeAddr);
     }
 
 
-    private static Map<String, Object> _jsonToMap_(JSONObject json) throws JSONException {
-        Map<String, Object> retMap = new HashMap<String, Object>();
+    private static List<JsonData> _jsonToList_(JSONObject json) throws JSONException {
+        List<JsonData> retMap = new ArrayList<>();
 
         if(json != JSONObject.NULL) {
             retMap = toList(json);
@@ -36,8 +39,8 @@ public class Utility {
     }
 
 
-    private static Map<String, Object> toList(JSONObject object) throws JSONException {
-        Map<String, Object> map = new HashMap<String, Object>();
+    private static List<JsonData> toList(JSONObject object) throws JSONException {
+        List<JsonData> map = new ArrayList<>();
 
         Iterator<String> keysItr = object.keys();
         while(keysItr.hasNext()) {
@@ -51,7 +54,6 @@ public class Utility {
             else if(value instanceof JSONObject) {
                 value = toList((JSONObject) value);
             }
-            map.put(key, value);
         }
         return map;
     }

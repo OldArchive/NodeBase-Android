@@ -1,6 +1,7 @@
 package nodebase.tech.akshaynexus;
 
 import android.content.Intent;
+import android.speech.tts.UtteranceProgressListener;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -66,6 +67,7 @@ public class MasternodeListView extends BaseDrawerActivity implements MyRecycler
                 drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+        RecyclerView recyclerView = findViewById(R.id.rvMasternodeList);
 
 setNavigationMenuItemChecked(3);
 
@@ -86,7 +88,9 @@ setNavigationMenuItemChecked(3);
                     inputString = inputString.substring(3);
                     System.out.println(inputString);
                     JSONArray jsonArray = new JSONArray(inputString);
-                    //mJsonDataList = Utility.jsonToMap(jsonArray);
+                    mJsonDataList = Utility.jsonToList(jsonArray);
+
+                    //mJsonDataList = Utility.jsonToList(jsonArray);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -95,12 +99,12 @@ setNavigationMenuItemChecked(3);
             }
         });
         // set up the RecyclerView
-        RecyclerView recyclerView = findViewById(R.id.rvMasternodeList);
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new MyRecyclerViewAdapter(this, mJsonDataList);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
-totalcount.setText(mJsonDataList.size() + "");
+        totalcount.setText(mJsonDataList.size() + "");
 //        recyclerView.addItemDecoration(new DividerItemDecoration(this,
 //                DividerItemDecoration.VERTICAL));
     }
